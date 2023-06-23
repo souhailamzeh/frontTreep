@@ -79,27 +79,32 @@ export const categoryData = [
   {
     id: 1,
     bannerImg: images.categoryIcon_1,
-    categoryName: "categoryName_1"
+    categoryName: "All"
+  },
+  {
+    id: 1,
+    bannerImg: images.categoryIcon_1,
+    categoryName: "Wow"
   },
   {
     id: 1,
     bannerImg: images.categoryIcon_2,
-    categoryName: "categoryName_2"
+    categoryName: "Forest"
   },
   {
     id: 1,
     bannerImg: images.categoryIcon_3,
-    categoryName: "categoryName_3"
+    categoryName: "Mountain"
   },
   {
     id: 1,
     bannerImg: images.categoryIcon_4,
-    categoryName: "categoryName_4"
+    categoryName: "Beach"
   },
   {
     id: 1,
     bannerImg: images.categoryIcon_5,
-    categoryName: "categoryName_5"
+    categoryName: "Cabins"
   },
 
 ]

@@ -17,11 +17,11 @@ const TripActivityFlatFun = (props) => {
 
     return (
         <TouchableOpacity style={DetailsScreenStyles.TripBox} onPress={() => onPress()}>
-            <Image source={item.dishbannerIMG} style={DetailsScreenStyles.ImageBoxStyle} resizeMode="cover" />
-            <TouchableOpacity style={DetailsScreenStyles.BottomBox}>
+            <Image source={{ uri : item }} style={DetailsScreenStyles.ImageBoxStyle} resizeMode="cover" />
+         {/*    <TouchableOpacity style={DetailsScreenStyles.BottomBox}>
                 <Text style={DetailsScreenStyles.BtnText}>{t("Lorium_Lipsume_Label")}</Text>
                 <VectoreIcons icon="AntDesign" name='doubleright' color={Colors.white_text_color} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </TouchableOpacity>
     )
 }

@@ -9,6 +9,7 @@ import images from '../../index';
 import { RouteName } from '../../routes';
 
 
+
 const DetailsScreen = ({route}) => {
     //const { navigation } = props;
     const navigation = useNavigation()
@@ -21,8 +22,8 @@ const DetailsScreen = ({route}) => {
 
     const { details } = route.params;
 
-console.log( "details",details)
-setDetails(details)
+    console.log(details)
+
     let price = details.tarifcentre;
     const PeoplePlusCount = () => {
         setCount(count + 1)
@@ -72,10 +73,10 @@ setDetails(details)
                     </View>
                     <Spacing space={SH(20)} />
                     <FlatList
-                        data={detail}
+                        data={details.activite}
                         horizontal
                         showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => (<TripActivityFlatFun item={item} index={index} onPress={() => navigation.navigate(RouteName.DETAILS_SCREEN)} />)}
+                        renderItem={({ item, index }) => (<TripActivityFlatFun item={item} index={index}  />)}
                         keyExtractor={item => item.id}
                         contentContainerStyle={DetailsScreenStyles.DetailsFlatContainer}
                     />
