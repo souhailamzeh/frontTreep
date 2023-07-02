@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 import { RouteName, SideNavigator } from '../routes';
 
 import {
-  LoginScreen, RegisterScreen, OtpVeryfiveScreen, SplashScreen, RegistrationSuccessful, Swiperscreen, DetailScreen, TranslationScreen, ForgotPassword, CreditCardScreen, PaytmSuccessFully, PaymentScreen, FilterScreen} from '../screens';
+  LoginScreen, RegisterScreen, OtpVeryfiveScreen, SplashScreen, RegistrationSuccessful, Swiperscreen, DetailScreen, TranslationScreen, ForgotPassword, CreditCardScreen, PaytmSuccessFully, PaymentScreen, FilterScreen,DetailsScreenRandonne, DetailScreenRandonne,IndexMaterial} from '../screens';
 
 const RootNavigator = props => {
 
@@ -42,10 +42,12 @@ const RootNavigator = props => {
         <Stack.Screen name={RouteName.SELECT_LANGUAGE} component={TranslationScreen} />
         <Stack.Screen name={RouteName.FORGOT_PASSWORD}  component={ForgotPassword} />
         <Stack.Screen name={RouteName.DETAILS_SCREEN}  component={DetailScreen} />
+        <Stack.Screen name={RouteName.DETAILS_SCREEN_RANDONNE}  component={DetailScreenRandonne} />
         <Stack.Screen name={RouteName.CREDIT_CARD_SCREEN} component={CreditCardScreen} />
         <Stack.Screen name={RouteName.PATMENT_SUCCESSFULL_SCREEN} component={PaytmSuccessFully} />
         <Stack.Screen name={RouteName.PAYMENT_SCREEN} component={PaymentScreen} />
         <Stack.Screen name={RouteName.FILER_SCREEN} component={FilterScreen} />
+        <Stack.Screen name={RouteName.IndexMaterial} component={IndexMaterial} />
 
 
       </Stack.Navigator>

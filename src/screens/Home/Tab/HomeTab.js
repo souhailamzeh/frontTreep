@@ -10,6 +10,7 @@ import { API_URL } from '../../../../configure';
 import RandonneList from '../../../components/ListingComponent/RandonneList';
 
 
+
 const HomeTab = () => {
   //const { navigation } = props;
   const navigation = useNavigation()
@@ -158,7 +159,7 @@ const HomeTab = () => {
             data={filteredRandonne.length > 0 ? filteredRandonne : randonne}
             horizontal
             showsHorizontalScrollIndicator={false}
-            renderItem={({ item, index }) => (< RandonneList item={item} index={index} onPress={() => navigation.navigate(RouteName.DETAILS_SCREEN)} />)}
+            renderItem={({ item, index }) => (< RandonneList item={item} index={index} randonneData={randonne} onPress={() => navigation.navigate(RouteName. DETAILS_SCREEN_RANDONNE, { detailsRandonne: item })} />)}
             keyExtractor={item => item.id}
             contentContainerStyle={HomeTabStyles.PopularNearbyFlatContainer}
           />
