@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { ExploreTab, FavouriteTab, HomeTab, NearByTab, Profile,IndexMaterial} from '../screens';
+import { ExploreTab, FavouriteTab, HomeTab, NearByTab, Profile} from '../screens';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
 import { ColorPicker, CustomSidebarMenu, VectoreIcons, HeaderLeftMenuIcon, AppHeader } from '../components';
@@ -143,27 +143,7 @@ function FavouriteTabStack(props) {
     </Stack.Navigator>
   );
 }
-function IndexMaterialStack(props) {
-  const { t } = useTranslation();
-  return (
-    <Stack.Navigator initialRouteName="IndexMaterial">
-      <Stack.Screen
-        name="IndexMaterial"
-        component={IndexMaterial}
-        options={{
-          headerTitle: (props) => <AppHeader {...props} headerTitle={t("IndexMaterial")} />,
-          ...HeaderArray,
-          headerLeft: () => (
-            <HeaderLeftMenuIcon {...props} />
-          ),
-          headerRight: () => (
-            <ColorPicker />
-          ),
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
+
 function ProfileScreenStack(props) {
   const { t } = useTranslation();
   return (
@@ -252,21 +232,7 @@ export function HomeScsreenTabAll() {
           ),
         }}
       />
-        <Tab.Screen
-        name={RouteName.IndexMaterial}
-        component={IndexMaterialStack}
-        options={{
-          tabBarLabel: t("Favorite_label"),
-          tabBarIcon: ({ focused }) => (
-            <VectoreIcons
-              icon="FontAwesome"
-              size={SF(23)}
-              name="bookmark"
-              color={focused ? Colors.theme_background : Colors.black_text_color}
-            />
-          ),
-        }}
-      />
+       
       <Tab.Screen
         name={RouteName.PROFILE_TAB}
         component={ProfileScreenStack}

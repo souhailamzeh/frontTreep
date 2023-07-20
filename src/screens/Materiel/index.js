@@ -1,0 +1,1 @@
+export {default as IndexMateriel} from './IndexMateriel';

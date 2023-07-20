@@ -12,7 +12,6 @@ const RouteName = {
     Camping: 'Camping',
     Randonne: 'Randonne',
     Favorite_TAB: 'FavouriteTab',
-    IndexMaterial: 'IndexMaterial',
     PROFILE_TAB: 'Profile',
     SELECT_LANGUAGE: 'TranslationScreen',
     FORGOT_PASSWORD: 'ForgotPassword',
@@ -27,6 +26,9 @@ const RouteName = {
     CREDIT_CARD_SCREEN: "CreditCardScreen",
     PATMENT_SUCCESSFULL_SCREEN: "PaytmSuccessFully",
     FILER_SCREEN: "FilterScreen",
+    INDEX_Materiel :"IndexMateriel",
+    INDEX_Reservation :"IndexReservation",
+    INDEX_Guiderandonne :"Guiderandonne"
     
   
 }

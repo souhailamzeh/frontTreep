@@ -207,6 +207,15 @@ export default DetailsScreenStyle = (Colors) => StyleSheet.create({
         padding: SH(5),
         paddingHorizontal: SH(10)
     },
+    BottomBar: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: 'white',
+        padding: 10,
+      },
+
 
 
 });

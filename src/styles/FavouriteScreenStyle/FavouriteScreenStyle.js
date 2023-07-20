@@ -90,6 +90,7 @@ export default FavouriteScreenStyle = (Colors) => StyleSheet.create({
         right: SW(10),
         top: SH(10)
     },
+    
     RecomandationFlatContainer: {
         paddingHorizontal: SH(20)
     },

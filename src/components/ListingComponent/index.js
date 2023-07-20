@@ -14,6 +14,10 @@ export { default as FilterPlaceFlatFun } from './FilterPlaceFlatFun';
 export { default as StarRateFlatFun } from './StarRateFlatFun';
 export { default as SliderFilter } from './SliderFilter';
 export { default as FAQData } from './FAQData';
+export { default as ListMateriel } from './ListMateriel';
+export { default as ListGuide } from './ListGuide';
+export { default as ListTransport } from './ListTransport';
+export { default as DetailsMateriel } from './DetailsMateriel';
 
 
 

@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from "react";
 import { Text, View, Image, ScrollView, TextInput, } from "react-native";
 import { Creditcard, } from '../../styles';
-import { Button, Container, AppHeader, Input, Spacing } from '../../components';
+import { Button, Container, AppHeader, Input, Spacing, VectoreIcons } from '../../components';
 import images from '../../index';
 import RouteName from '../../routes/RouteName';
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useTheme } from '@react-navigation/native';
-import { Colors, SH } from "../../utils";
+import { Colors, SH, SF } from "../../utils";
 
 const CreditCardScreen = (props) => {
   const { t } = useTranslation();
@@ -29,9 +29,9 @@ const CreditCardScreen = (props) => {
     if (type === 'CardNumber') setCardNumber(text);
   };
   return (
-    <Container backgroundColor={Colors.background}>      
-      <Spacing space={SH(20)}/>
-      <AppHeader Iconname={true} headerTitle={t("Card_SCREEN_Label")} onPress={() => navigation.replace(RouteName.PAYMENT_SCREEN)} />
+    <Container backgroundColor={Colors.background}>
+      <Spacing space={SH(20)} />
+      <AppHeader Iconname={true}  onPress={() => navigation.replace(RouteName.PAYMENT_SCREEN)} />
       <View style={Creditcards.minstyleviewphotograpgy}>
         <ScrollView
           keyboardShouldPersistTaps="handled"
@@ -39,6 +39,13 @@ const CreditCardScreen = (props) => {
           <View style={Creditcards.keybordtopviewstyle}>
             <View style={Creditcards.minflexview}>
               <View style={Creditcards.minviewsigninscreen}>
+                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                  <VectoreIcons icon="AntDesign" name='carryout' size={SF(22)} color={Colors.blue_text_color} />
+                  <View style={{ borderBottomWidth: 1, borderBottomColor: 'black', width: 90, marginHorizontal: 10 }} />
+                  <VectoreIcons icon="AntDesign" name='wallet' size={SF(22)} color='blue' />
+                  <View style={{ borderBottomWidth: 1, borderBottomColor: 'black', width: 90, marginHorizontal: 10 }} />
+                  <VectoreIcons icon="AntDesign" name='check' size={SF(22)} color={Colors.blue_text_color} />
+                </View>
                 <View style={Creditcards.setwidthimage}>
                   <Image source={images.Creditcard} resizeMode='cover' style={Creditcards.Creditcards} />
                 </View>
@@ -94,7 +101,7 @@ const CreditCardScreen = (props) => {
                 <View style={Creditcards.setbuttonstyle}>
                   <Button title={t("Pay_with_Card")}
                     onPress={() => navigation.replace(RouteName.PATMENT_SUCCESSFULL_SCREEN)}
-                    buttonStyle={Creditcards.setbuttonCreditcardsavecard}                  
+                    buttonStyle={Creditcards.setbuttonCreditcardsavecard}
                   />
                 </View>
               </View>

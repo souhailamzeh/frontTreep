@@ -9,7 +9,10 @@ const Stack = createNativeStackNavigator();
 import { RouteName, SideNavigator } from '../routes';
 
 import {
-  LoginScreen, RegisterScreen, OtpVeryfiveScreen, SplashScreen, RegistrationSuccessful, Swiperscreen, DetailScreen, TranslationScreen, ForgotPassword, CreditCardScreen, PaytmSuccessFully, PaymentScreen, FilterScreen,DetailsScreenRandonne, DetailScreenRandonne,IndexMaterial} from '../screens';
+  LoginScreen, RegisterScreen, OtpVeryfiveScreen, SplashScreen, RegistrationSuccessful, Swiperscreen, DetailScreen, TranslationScreen, ForgotPassword, CreditCardScreen, PaytmSuccessFully, PaymentScreen, FilterScreen,DetailsScreenRandonne, DetailScreenRandonne} from '../screens';
+import { IndexMateriel } from '../screens/Materiel';
+import { IndexReservation } from '../screens/Reservation';
+import { Guiderandonne } from '../screens/GuideRandonnee';
 
 const RootNavigator = props => {
 
@@ -47,7 +50,11 @@ const RootNavigator = props => {
         <Stack.Screen name={RouteName.PATMENT_SUCCESSFULL_SCREEN} component={PaytmSuccessFully} />
         <Stack.Screen name={RouteName.PAYMENT_SCREEN} component={PaymentScreen} />
         <Stack.Screen name={RouteName.FILER_SCREEN} component={FilterScreen} />
-        <Stack.Screen name={RouteName.IndexMaterial} component={IndexMaterial} />
+        <Stack.Screen name={RouteName.INDEX_Materiel} component={IndexMateriel} />
+        <Stack.Screen name={RouteName.INDEX_Reservation} component={IndexReservation} />
+        <Stack.Screen name={RouteName.INDEX_Guiderandonne} component={Guiderandonne} />
+    
+    
 
 
       </Stack.Navigator>

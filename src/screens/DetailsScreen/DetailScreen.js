@@ -10,6 +10,7 @@ import { RouteName } from '../../routes';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { API_URL } from '../../../configure';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { IndexMateriel } from '../Materiel';
 
 
 
@@ -31,7 +32,7 @@ const DetailsScreen = ({ route }) => {
     const [meteo, setmeteo] = useState('');
     const [filterData, setFilterData] = useState();
 
-    const { details } = route.params;
+    const { details  } = route.params;
 
     console.log(details)
 
@@ -78,7 +79,6 @@ const DetailsScreen = ({ route }) => {
         if (filteredData) {
             setFilterData(filteredData);
             setFilterData(filteredData);
-
         }
         else {
             setFilterData('Pas tempretaure dispo');
@@ -193,7 +193,7 @@ const DetailsScreen = ({ route }) => {
                     </View>
                     <Text style={DetailsScreenStyles.PerPersionStyle}>{t("Total_Label")}</Text>
                 </View>
-                <Button title={t("Continue_Label")} buttonStyle={DetailsScreenStyles.BtnStyle} onPress={() => navigation.navigate(RouteName.IndexMaterial)} />
+                <Button title={t("Continue_Label")} buttonStyle={DetailsScreenStyles.BtnStyle} onPress={() => navigation.navigate(RouteName.INDEX_Materiel , { details }) }/>
             </View>
         </Container>
     );
