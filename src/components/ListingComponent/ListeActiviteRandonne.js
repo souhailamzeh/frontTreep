@@ -16,7 +16,7 @@ const ListeActiviteRandonne = (props) => {
    
 
     return (
-        <TouchableOpacity style={DetailsScreenStyles.TripBox} onPress={() => onPress()}>
+        <TouchableOpacity style={DetailsScreenStyles.TripBox} >
             <Image source={{ uri : item }} style={DetailsScreenStyles.ImageBoxStyle} resizeMode="cover" />
          {/*    <TouchableOpacity style={DetailsScreenStyles.BottomBox}>
                 <Text style={DetailsScreenStyles.BtnText}>{t("Lorium_Lipsume_Label")}</Text>

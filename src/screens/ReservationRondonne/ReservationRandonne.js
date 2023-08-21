@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, FlatList, ScrollView, StatusBar, ImageBackground } from 'react-native';
-import { Container, Spacing, LinearGradientComp, TripActivityFlatFun, Button, PackagesFlatFun, VectoreIcons, DetailsMateriel } from '../../components';
+import { Container, Spacing, LinearGradientComp, TripActivityFlatFun, Button, PackagesFlatFun, VectoreIcons, DetailsMateriel, DetailsGuide, DetailsTransport } from '../../components';
 import { Colors, SF, SH, tripActivityData, packagesData } from '../../utils';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -18,7 +18,7 @@ import Reservation from 'react-native-calendars/src/agenda/reservation-list/rese
 
 
 
-const IndexReservation = ({ route }) => {
+const ReservationRandonne = ({ route }) => {
     //const { navigation } = props;
     const navigation = useNavigation()
     const { t } = useTranslation();
@@ -28,50 +28,37 @@ const IndexReservation = ({ route }) => {
     const [selectedIndex, setIndex] = useState(1);
     const [count, setCount] = useState(1);
     const [selected, setSelected] = useState('');
+    const Creditcards = useMemo(() => Creditcard(Colors), [Colors]);
 
+    const [departureDate, setDepartureDate] = useState('');
+    const [endDate, setEndDate] = useState('');
 
     const [meteo, setmeteo] = useState('');
     const [filterData, setFilterData] = useState();
-   
-    const [total, setTotal] = useState();
-   
-    const { details, selectedMateriel, departureDate,endDate } = route?.params
-  
-    console.log("detailssReservation", selectedMateriel)
+    const [total, setTotal] = useState(0);
 
-    console.log("departureDate",departureDate)
-    console.log("endDate",endDate)
+    const {  detailsRandonne, checkedItems, checkedItemsGuid,departureDatee ,endDatee} = route?.params?? {};
+    console.log("detailsRandonne", detailsRandonne)
+    console.log("ReservationTransport", checkedItems)
+    console.log("ReservationGuide", checkedItemsGuid)
     
 
-    const PeoplePlusCount = () => {
-        setCount(count + 1)
-    }
-    const PeopleMinusCount = () => {
-        setCount(count - 1)
-        if (count >= 1) {
-            setCount(1)
-        }
-    }
-    useEffect(() => {
-        calculateTotalReservation()
-
-    }, []);
-   
-
-    const calculateTotalReservation = () => {
-        const reservation = parseFloat(details.tarifcentre);
-        console.log("rese", reservation)
-        let total = 0;
-        for (let i = 0; i < selectedMateriel.length; i++) {
-          const item = selectedMateriel[i];
-          total += item.PrixMatriel * item.count ;
-        }
-        const totalWithReservation = total + reservation;
+      // Function to calculate the total price
+     
+    
+      useEffect(() => {
+        const reservation = parseFloat(detailsRandonne.tarifrandonne);
+        let totalPrice = 0;
+        checkedItemsGuid.forEach((item) => {
+            totalPrice += parseFloat(item.tarif); 
+        });
+        checkedItems.forEach((item) => {
+            totalPrice += parseFloat(item.tarif); 
+        });
+        const totalWithReservation = totalPrice + reservation;
         setTotal(totalWithReservation)
-        console.log( "totaal",total)
-        return total;
-      };
-
+        console.log( "totaal",totalWithReservation)
+      }, [checkedItemsGuid, checkedItems]);
     /* carryout,check ,wallet*/
     return (
 
@@ -80,7 +67,7 @@ const IndexReservation = ({ route }) => {
             <ScrollView>
                 <View style={DetailsScreenStyles.MainView}>
                     <View>
-                        <ImageBackground source={{ uri: details.imagecentre }} style={[DetailsScreenStyles.BannerImageStyle, { width: 395, height: 430 }]}>
+                        <ImageBackground source={{ uri: detailsRandonne.imagerandonne }} style={[DetailsScreenStyles.BannerImageStyle, { width: 395, height: 430 }]}>
                             <TouchableOpacity onPress={() => navigation.navigate(RouteName.INDEX_Materiel)} style={DetailsScreenStyles.BackArrowBox}>
                                 <VectoreIcons icon="AntDesign" name='arrowleft' size={SF(22)} color={Colors.white_text_color} />
                             </TouchableOpacity>
@@ -109,19 +96,28 @@ const IndexReservation = ({ route }) => {
 
                     <View style={[DetailsScreenStyles.FlextRowJusSpBtn, DetailsScreenStyles.Padd20]}>
                         <Text style={{ fontSize: 20 }} >{"Reservation : "}</Text>
-                        <TouchableOpacity><Text style={DetailsScreenStyles.SeeAllText}>{details.tarifcentre}</Text></TouchableOpacity>
+                        <TouchableOpacity><Text style={DetailsScreenStyles.SeeAllText}>{detailsRandonne.tarifrandonne}</Text></TouchableOpacity>
                     </View>
                     <Spacing space={SH(20)} />
                     <View style={{ borderBottomWidth: 0.2, width: '90%', alignSelf: 'flex-start' ,marginHorizontal: 20 }}>
                         <FlatList
-                            data={selectedMateriel}
+                            data={checkedItemsGuid}
                             numColumns={1}
-                            renderItem={({ item, index }) => (<DetailsMateriel materielData={selectedMateriel} item={item} index={index} />)}
+                            renderItem={({ item, index }) => (<DetailsGuide materielData={checkedItemsGuid}  item={item} index={index} />)}
+                            keyExtractor={item => item.id}
+                            contentContainerStyle={FavouriteScreenStyles.RecomandationFlatContainer}
+                        
+                        /> 
+                         <FlatList
+                            data={checkedItems}
+                            numColumns={1}
+                            renderItem={({ item, index }) => (<DetailsTransport materielData={checkedItemsGuid}  item={item} index={index} />)}
                             keyExtractor={item => item.id}
                             contentContainerStyle={FavouriteScreenStyles.RecomandationFlatContainer}
                             ListFooterComponent={<View style={{ marginBottom: 20 }} />}
-                        />
+                        /> 
                     </View>
+                    
                     <Spacing />
                     <Spacing space={SH(10)} />
                     <View style={[DetailsScreenStyles.FlextRowJusSpBtn, DetailsScreenStyles.Padd20]}>
@@ -129,12 +125,15 @@ const IndexReservation = ({ route }) => {
                         <TouchableOpacity><Text style={[DetailsScreenStyles.SeeAllText , { fontSize: 23}]}>{total}</Text></TouchableOpacity>
                     </View>
                 </View>
-            </ScrollView>
-            <View style={[DetailsScreenStyles.FlextRowJusSpBtn, { alignItems: 'center', justifyContent: 'center' }]}>
+                <View style={Creditcards.setbuttonstyle}>
 
-                <Button title={"Continue to payment "} buttonStyle={DetailsScreenStyles.BtnStyle} onPress={() => navigation.navigate(RouteName.CREDIT_CARD_SCREEN,{total ,type:"camping", details, selectedMateriel, departureDate,endDate })} />
+                <Button title={"Continue to payment "} 
+                   buttonStyle={Creditcards.setbuttonCreditcardsavecard}
+                   onPress={() => navigation.navigate(RouteName.CREDIT_CARD_SCREEN,{total,type:"rondonner",detailsRandonne, checkedItems, checkedItemsGuid,departureDatee,endDatee})} /> 
             </View>
+            </ScrollView>
+            
         </Container>
     );
 };
-export default IndexReservation;
+export default ReservationRandonne;

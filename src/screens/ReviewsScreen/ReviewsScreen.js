@@ -7,6 +7,8 @@ import { RouteName } from "../../routes";
 import { SW, SH } from "../../utils";
 import { useTheme } from '@react-navigation/native';
 import { useTranslation } from "react-i18next";
+import { API_URL } from '../../../configure';
+
 
 const ReviewsScreen = (props) => {
   const { navigation } = props;
@@ -23,6 +25,40 @@ const ReviewsScreen = (props) => {
   const onoknutton = () => {
     navigation.navigate(RouteName.HOME_TAB);
   }
+
+  const handleReview = async () => {
+    try {
+      const response = await fetch(`${API_URL}avis/avisPost`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify( {
+          Commentaire: text,
+          
+        }),
+      });
+      console.log("payment",{
+        review: text,
+      })
+  
+    if(response.ok)
+    {
+      setAlertVisible(true);
+     setAlertMessage(alertdata.logout);
+    }
+    else{
+      alert("Review failer");
+
+    }
+      // You can perform any additional actions after successful payment here
+  
+    } catch (error) {
+      console.error('Error in payment:', error);
+      alert('Payment failed. Please try again later.');
+      // You can perform any additional actions if payment fails
+    }
+  };
   return (
     <View style={HelpScreenStyle.MinViewScreenTwo}>
       <ScrollView
@@ -56,10 +92,12 @@ const ReviewsScreen = (props) => {
                 />
                 <Spacing space={SH(20)} />
                 <View style={HelpScreenStyle.AccountButton}>
-                  <Button onPress={() => {
+                  <Button /* onPress={() => {
                     setAlertVisible(true);
                     setAlertMessage(alertdata.logout);
-                  }} title={t("Reviews_Submit")}
+                  }} */ 
+                  title={t("Reviews_Submit")}
+                  onPress={handleReview}
                   />
                 </View>
               </View>

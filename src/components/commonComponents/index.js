@@ -19,6 +19,8 @@ export { default as VectoreIcons } from './VectoreIcons';
 export { default as LanguageSelectFlat } from './LanguageSelectFlat';
 export { default as ModalLanguage } from './ModalLanguage';
 export { default as HeaderLeftMenuIcon } from './HeaderLeftMenuIcon';
+export { default as ErrorAlert } from './ErrorAlert';
+
 
 
 

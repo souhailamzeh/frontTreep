@@ -6,6 +6,7 @@ import { RouteName } from '../../../routes';
 import { Login, Style } from '../../../styles';
 import { useTranslation } from "react-i18next";
 import { useTheme } from '@react-navigation/native';
+import { API_URL } from '../../../../configure';
 
 const Register = (props) => {
     const {navigation} = props;
@@ -25,6 +26,42 @@ const Register = (props) => {
         textInputPassword: "",
         toggleCheckBox: false,
     };
+    const handleSignup = async () => {
+        try {
+          const response = await fetch(`${API_URL}users/signup`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              username: state.username,
+              email: state.emailId,
+              mobileNumber: state.mobileNumber,
+              password: state.textInputPassword,
+            }),
+          });
+      
+          const responseBody = await response.json(); // Parse response body as JSON
+          console.log("signup", responseBody);
+      
+          if (responseBody.success) {
+            // Signup successful, navigate to another screen
+            navigation.navigate(RouteName.OTP_VERYFY_SCREEN, {
+                email: state.emailId,
+              });
+          } else {
+            // Signup failed, show an error message to the user
+            alert(`Signup failed: ${responseBody.message}`);
+
+          }
+        } catch (error) {
+          console.error('Error signing up:', error);
+          // Handle signup error (e.g., show a general error message to the user)
+          alert('Signup failed. Please try again later.');
+        }
+      };
+
+
     const [state, setState] = useState(stateArray);
     const [stateError, setStateError] = useState(stateErrorArray);
     const [passwordVisibility, setPasswordVisibility] = useState(true);
@@ -119,7 +156,7 @@ const Register = (props) => {
                         <View style={Logins.ButtonView}>
                             <Button
                                 title={t("Sign_Up_Text")}
-                                onPress={() => navigation.navigate(RouteName.REGIATRAION_SUCCESSFULL)}
+                                 onPress={handleSignup}
                             />
                         </View>
                         <Spacing space={SH(20)} />

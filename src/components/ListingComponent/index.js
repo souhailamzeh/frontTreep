@@ -18,6 +18,9 @@ export { default as ListMateriel } from './ListMateriel';
 export { default as ListGuide } from './ListGuide';
 export { default as ListTransport } from './ListTransport';
 export { default as DetailsMateriel } from './DetailsMateriel';
+export { default as DetailsGuide } from './DetailsGuide';
+export { default as DetailsTransport } from './DetailsTransport';
+export { default as ListNotification } from './ListNotification';
 
 
 

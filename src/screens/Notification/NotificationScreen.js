@@ -1,49 +1,61 @@
-import React, { useMemo } from "react";
-import { Text, View, Image, ScrollView, KeyboardAvoidingView, TouchableOpacity, } from "react-native";
-import { HelpScreenStyles, Style } from '../../styles';
-import images from '../../index';
-import { Spacing } from '../../components';
-import { SH } from '../../utils';
+import React, { useState, useEffect } from "react";
+import { View, Text, FlatList, StyleSheet, Dimensions } from "react-native";
 import { useTranslation } from "react-i18next";
-import { useTheme } from '@react-navigation/native';
+import { API_URL } from "../../../configure";
+import { ListNotification } from "../../components/ListingComponent";
 
-const NotificationScreen = () => {
+const NotificationListScreen = (props) => {
   const { t } = useTranslation();
-  const { Colors } = useTheme();
-  const HelpScreenStyle = useMemo(() => HelpScreenStyles(Colors), [Colors]);
+  const [notifications, setNotifications] = useState([]);
+
+  const fetchNotifications = async () => {
+    try {
+      const response = await fetch(`${API_URL}notification/notificationGetAll`);
+      const data = await response.json();
+      setNotifications(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
+
+  const renderItem = ({ item, index }) => (
+    <ListNotification item={item} notifData={notifications} index={index} />
+  );
+
+  const screenWidth = Dimensions.get("window").width;
+  const numColumns = screenWidth > 600 ? 2 : 1;
+
   return (
-    <View style={HelpScreenStyle.MinViewScreen}>
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={Style.ScrollViewStyle}>
-        <KeyboardAvoidingView enabled>
-          <View style={HelpScreenStyle.NotificationView}>
-            <View style={HelpScreenStyle.MinContentView}>
-              <Spacing space={SH(20)} />
-              <TouchableOpacity style={HelpScreenStyle.FlexDiractionRow}>
-                <View>
-                  <Image style={HelpScreenStyle.ImageSet} resizeMode='cover' source={images.Notification_one} />
-                </View>
-                <View style={HelpScreenStyle.ParegraphWidth}>
-                  <Text style={HelpScreenStyle.TextParegraph}>{t("Notification_Paregraph")}</Text>
-                  <Text style={HelpScreenStyle.TwoNavemBerScreen}>{t("Notification_date")}</Text>
-                </View>
-              </TouchableOpacity>
-              <Spacing space={SH(20)} />
-              <TouchableOpacity style={HelpScreenStyle.FlexDiractionRowTwo}>
-                <View>
-                  <Image style={HelpScreenStyle.ImageSet} resizeMode='contain' source={images.Notification_two} />
-                </View>
-                <View style={HelpScreenStyle.ParegraphWidthTwo}>
-                  <Text style={HelpScreenStyle.TextParegraph}>{t("Notification_Paregraph_Two")}</Text>
-                  <Text style={HelpScreenStyle.TwoNavemBerScreen}>{t("Notification_Date_Two")}</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </KeyboardAvoidingView>
-      </ScrollView>
+    <View style={styles.container}>
+      <Text style={styles.title}>{t("Notifications")}</Text>
+      <FlatList
+        data={notifications}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        numColumns={numColumns}
+        contentContainerStyle={styles.flatListContent}
+      />
     </View>
   );
 };
-export default NotificationScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  flatListContent: {
+    justifyContent: "space-between",
+  },
+});
+
+export default NotificationListScreen;

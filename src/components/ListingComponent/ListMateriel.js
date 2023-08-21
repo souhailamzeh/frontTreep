@@ -47,8 +47,7 @@ const ListMateriel = (props) => {
     const handlePress = () => {
         if (count >= 1) {
             const updatedMateriel = [...selectedMateriel, { ...item, count }];
-            setSelectedMateriel(updatedMateriel);
-            console.log("updatedMateriel", updatedMateriel);
+            setSelectedMateriel(updatedMateriel);           
           }
     };
     return (

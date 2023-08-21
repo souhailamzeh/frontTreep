@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState,useEffect } from 'react';
 import { Text, TouchableOpacity, View, Image, StatusBar, ScrollView } from 'react-native';
 import { SF, SH, Colors } from '../../utils';
 import { FavouriteScreenStyle, DetailsScreenStyle } from '../../styles';
@@ -6,57 +6,37 @@ import { useTranslation } from 'react-i18next';
 import { useTheme, useNavigation } from '@react-navigation/native';
 import { Spacing, VectoreIcons, Container, Button } from '..';
 import images from '../../images';
+import { CheckBox } from 'react-native-elements'
 
 
-const ListTransport = (props) => {
-
+const ListTransport = ({ item, checked, onCheckedItemsChange ,index}) => {
     const { t } = useTranslation();
-    const navigation = useNavigation()
     const { Colors } = useTheme();
-    const DetailsScreenStyles = useMemo(() => DetailsScreenStyle(Colors), [Colors]);
     const FavouriteScreenStyles = useMemo(() => FavouriteScreenStyle(Colors), [Colors]);
-    const [liked, setLiked] = useState([]);
-    const { item, onPress, index } = props;
-    const [count, setCount] = useState(0);
-    const { selectedMateriel, setSelectedMateriel } = props;
-    const items = [props.item];
+    const [isChecked, setIsChecked] = useState(checked);
 
-
-
-    const LikeUnlike = () => {
-        if (liked.includes(index)) {
-            let unlike = liked.filter((elem) => elem !== index);
-            setLiked(unlike);
-        } else {
-            setLiked([...liked, index]);
-        }
-    }
-
-    //let price = item.PrixMatriel;
-    const PeoplePlusCount = () => {
-        setCount(count + 1)
-    }
-
-    const PeopleMinusCount = () => {
-        setCount(count - 1)
-        if (count >= 1) {
-            setCount(0)
-        }
-    }
-
-    const handlePress = () => {
-        if (count >= 1) {
-            const updatedMateriel = [...selectedMateriel, { ...item, count }];
-            setSelectedMateriel(updatedMateriel);
-            console.log("updatedMateriel", updatedMateriel);
-          }
-    };
+    useEffect(() => {
+        setIsChecked(checked);
+      }, [checked]);
+  
+      const handleCheckBoxChange = () => {
+        const newCheckedValue = !isChecked;
+        setIsChecked(newCheckedValue);
+        onCheckedItemsChange(newCheckedValue, item);
+        console.log("tt",newCheckedValue)
+      };
+     
+    
+    
+     
+    
+    
     return (
         <Container backgroundColor={Colors.background}>
             <StatusBar translucent backgroundColor="transparent" barStyle={'light-content'} />
             <ScrollView>
-                {items.map((item, index) => (
-                    <TouchableOpacity key={index} style={FavouriteScreenStyles.RecomandationBox} onPress={handlePress}>
+               
+                    <TouchableOpacity key={index} style={FavouriteScreenStyles.RecomandationBox}  >
                         <View style={FavouriteScreenStyles.RecomandationnIMGWrap}>
                             <Image source={{ uri: item.image }} style={FavouriteScreenStyles.dishbannerIMG} />
                         </View>
@@ -65,14 +45,23 @@ const ListTransport = (props) => {
                                 <Text style={FavouriteScreenStyles.PlaceNameStyle}>{t(item.model)}</Text>
                                 <Spacing space={SH(5)} />
                                 <View >
-                                        <Text style={[FavouriteScreenStyles.LocationStyle]}>{item.tarif}  TND /Person </Text>
+                                        <Text style={[FavouriteScreenStyles.LocationStyle]}>{item.tarif}  TND / Person </Text>
                                 </View>
                                 <Spacing />
                             </View>
+                            <Spacing space={SH(50)} />
+                            <View style={{ marginLeft: 80 }}>
+                                <CheckBox
+                               checked={isChecked} // Assign the 'checked' state to the checkbox
+                                // Assign the function to handle checkbox click
+                                onPress={handleCheckBoxChange}
+                            />
+                            </View>
+                            <Spacing />
                            
                         </View>
                     </TouchableOpacity>
-                ))}
+             
             </ScrollView>
 
         </Container>

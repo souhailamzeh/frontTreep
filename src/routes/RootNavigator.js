@@ -13,6 +13,7 @@ import {
 import { IndexMateriel } from '../screens/Materiel';
 import { IndexReservation } from '../screens/Reservation';
 import { Guiderandonne } from '../screens/GuideRandonnee';
+import { ReservationRandonne } from '../screens/ReservationRondonne';
 
 const RootNavigator = props => {
 
@@ -53,6 +54,7 @@ const RootNavigator = props => {
         <Stack.Screen name={RouteName.INDEX_Materiel} component={IndexMateriel} />
         <Stack.Screen name={RouteName.INDEX_Reservation} component={IndexReservation} />
         <Stack.Screen name={RouteName.INDEX_Guiderandonne} component={Guiderandonne} />
+        <Stack.Screen name={RouteName.Reservation_Randonne} component={ReservationRandonne} />
     
     
 

@@ -32,7 +32,8 @@ const DetailsScreen = ({ route }) => {
     const [meteo, setmeteo] = useState('');
     const [filterData, setFilterData] = useState();
 
-    const { details  } = route.params;
+    const { details  } = route?.params;
+    
 
     console.log(details)
 
@@ -87,9 +88,21 @@ const DetailsScreen = ({ route }) => {
 
 
     }
+    const navigateToIndexReservation = () => {
+        navigation.navigate(RouteName.INDEX_Materiel, {
+            details,
+            departureDate: departureDate || null, // Pass as a string directly (already in ISO format)
+            endDate: endDate || null, // Pass as a string directly (already in ISO format)
+        });
+    };
+
+
+    
     useEffect(() => {
         Meteo();
         //console.warn('deb',departureDate , 'fin' , endDate)
+        console.log("depar",departureDate)
+        console.log("end",endDate)
 
 
     }, []);
@@ -155,7 +168,6 @@ const DetailsScreen = ({ route }) => {
                             [endDate]: { selected: true, disableTouchEvent: true, selectedDotColor: 'orange' },
                         }}
                     />
-
                     {departureDate ? (
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
                             <Icon name="thermometer" size={20} color="black" />
@@ -193,7 +205,7 @@ const DetailsScreen = ({ route }) => {
                     </View>
                     <Text style={DetailsScreenStyles.PerPersionStyle}>{t("Total_Label")}</Text>
                 </View>
-                <Button title={t("Continue_Label")} buttonStyle={DetailsScreenStyles.BtnStyle} onPress={() => navigation.navigate(RouteName.INDEX_Materiel , { details }) }/>
+                <Button title={t("Continue_Label")} buttonStyle={DetailsScreenStyles.BtnStyle} onPress={navigateToIndexReservation}/>
             </View>
         </Container>
     );

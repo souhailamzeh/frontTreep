@@ -27,9 +27,9 @@ const DetailsScreenRandonne = ({route}) => {
     const [meteo, setmeteo] = useState('');
     const [filterData, setFilterData] = useState();
 
-    const { detailsRandonne } = route.params;
-    const [departureDate, setDepartureDate] = useState('');
-    const [endDate, setEndDate] = useState('');
+    const { detailsRandonne } = route?.params;
+    const [departureDatee, setDepartureDatee] = useState('');
+    const [endDatee, setEndDatee] = useState('');
 
     console.log("randonneDe",detailsRandonne)
 
@@ -52,26 +52,22 @@ const DetailsScreenRandonne = ({route}) => {
                     setmeteo(response)
                   
                 });
-                
-
         } catch (error) {
             console.error(error);
         }
-
     }
 
     const HandleDate = (Datee) => {
-
-        if (!departureDate) {
-            setDepartureDate(Datee);
-            setEndDate('');
-        } else if (!endDate && Datee > departureDate) {
-            setEndDate(Datee);
+        if (!departureDatee) {
+            setDepartureDatee(Datee);
+            setEndDatee('');
+        } else if (!endDatee && Datee > departureDatee) {
+            setEndDatee(Datee);
         } else {
-            setDepartureDate(Datee);
-            setEndDate('');
+            setDepartureDatee(Datee);
+            setEndDatee('');
         }
-        console.log("depart", departureDate)
+        console.log("depart", departureDatee)
 
         const filteredData = meteo.find((item) => item.date === Datee);
         console.log("filter", filteredData)
@@ -81,16 +77,20 @@ const DetailsScreenRandonne = ({route}) => {
         }
         else {
             setFilterData('Pas tempretaure dispo');
-
         }
-
-
     }
+    const navigateToIndexReservation = () => {
+        navigation.navigate(RouteName.INDEX_Guiderandonne, {
+            detailsRandonne,
+            departureDatee: departureDatee || null, // Pass as a string directly (already in ISO format)
+            endDatee: endDatee || null, // Pass as a string directly (already in ISO format)
+        });
+        console.log("testDate",departureDatee)
+    };
 
     useEffect(() => {
         Meteo();
         //console.warn('deb',departureDate , 'fin' , endDate)
-
         console.log("meeeteo",meteo)
     }, []);
 
@@ -146,12 +146,12 @@ const DetailsScreenRandonne = ({route}) => {
 
                         onDayPress={day => HandleDate(day.dateString)}
                         markedDates={{
-                            [departureDate]: { selected: true, disableTouchEvent: true, selectedDotColor: 'orange' },
-                            [endDate]: { selected: true, disableTouchEvent: true, selectedDotColor: 'orange' },
+                            [departureDatee]: { selected: true, disableTouchEvent: true, selectedDotColor: 'orange' },
+                            [endDatee]: { selected: true, disableTouchEvent: true, selectedDotColor: 'orange' },
                         }}
                     />
 
-                    {departureDate ? (
+                    {departureDatee ? (
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
                             <Icon name="thermometer" size={20} color="black" />
                             <Text style={[DetailsScreenStyles.TitleLabel, DetailsScreenStyles.Padd20]}>
@@ -160,9 +160,9 @@ const DetailsScreenRandonne = ({route}) => {
                         </View>
                     ) : null}
                     <Text style={[DetailsScreenStyles.TitleLabel, DetailsScreenStyles.Padd20]}>
-                        {departureDate ? parseInt(departureDate.slice(-2)) : null}
-                        {departureDate && endDate ? " - " : null}
-                        {endDate ? parseInt(endDate.slice(-2)) : null}
+                        {departureDatee ? parseInt(departureDatee.slice(-2)) : null}
+                        {departureDatee && endDatee ? " - " : null}
+                        {endDatee ? parseInt(endDatee.slice(-2)) : null}
                     </Text>
                     {/* <FlatList
                         data={packagesData}
@@ -200,7 +200,7 @@ const DetailsScreenRandonne = ({route}) => {
                     </View>
                     <Text style={DetailsScreenStyles.PerPersionStyle}>{t("Total_Label")}</Text>
                 </View>
-                <Button title={t("Continue_Label")} buttonStyle={DetailsScreenStyles.BtnStyle} onPress={() => navigation.navigate(RouteName.INDEX_Guiderandonne , { detailsRandonne }) } />
+                <Button title={t("Continue_Label")} buttonStyle={DetailsScreenStyles.BtnStyle} onPress={navigateToIndexReservation} />
             </View>
         </Container>
     );

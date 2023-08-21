@@ -28,7 +28,8 @@ const RouteName = {
     FILER_SCREEN: "FilterScreen",
     INDEX_Materiel :"IndexMateriel",
     INDEX_Reservation :"IndexReservation",
-    INDEX_Guiderandonne :"Guiderandonne"
+    INDEX_Guiderandonne :"Guiderandonne",
+    Reservation_Randonne :"ReservationRandonne"
     
   
 }

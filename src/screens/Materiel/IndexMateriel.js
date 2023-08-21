@@ -21,7 +21,7 @@ const IndexMateriel = ({ route }) => {
   
 
   
-  const { details } = route.params;
+  const { details ,departureDate,endDate } = route.params ?? {};
  
   const handlematriel = async () => {
     try {
@@ -35,10 +35,10 @@ const IndexMateriel = ({ route }) => {
     }
   }
   const handleContinue = () => {
-    console.log("tteeest",details)
+   
     if (selectedMateriel) {
-      navigation.navigate(RouteName.INDEX_Reservation, { details, selectedMateriel });
-     
+      navigation.navigate(RouteName.INDEX_Reservation, { details, selectedMateriel,departureDate,endDate });
+      console.log("tteeest",selectedMateriel)
     } else {
       console.log("erreur")
       // Handle case when count is less than 1 or no materiel is selected
@@ -74,7 +74,7 @@ const IndexMateriel = ({ route }) => {
                 <Button title={t("Continue_Label")} buttonStyle={[DetailsScreenStyles.BtnStyle]}   onPress={handleContinue}/>
             </View>
  
-    </Container>
+    </Container> 
   );
 };
 export default IndexMateriel;

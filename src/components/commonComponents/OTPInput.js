@@ -2,7 +2,7 @@ import React from "react";
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 
 function OTPInput(props) {
-    const { style, pinCount, autoFocusOnLoad, codeInputFieldStyle,codeInputHighlightStyle } = props;
+    const { style, pinCount, autoFocusOnLoad, codeInputFieldStyle,codeInputHighlightStyle ,onCodeFilled } = props;
     return (
         <OTPInputView
             style={style}
@@ -10,6 +10,9 @@ function OTPInput(props) {
             autoFocusOnLoad={autoFocusOnLoad}
             codeInputFieldStyle={codeInputFieldStyle}
             codeInputHighlightStyle={codeInputHighlightStyle}
+            onCodeFilled={onCodeFilled} // Pass the onCodeFilled callback to OTPInputView
+
+            
         />
     );
 };

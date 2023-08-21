@@ -5,6 +5,7 @@ import { RouteName } from '../../routes';
 import { ConfirmationAlert, Spacing, VectoreIcons } from '../../components';
 import { Colors, SF } from '../../utils';
 import { useTranslation } from "react-i18next";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CustomSidebarMenu = (props) => {
   const { t } = useTranslation();
@@ -15,7 +16,18 @@ const CustomSidebarMenu = (props) => {
   let alertdata = {
     'logout': t("Are_You_Sure_logout"),
   }
+
+  const clearAccessToken = async () => {
+    try {
+      await AsyncStorage.removeItem('accessToken');
+      console.log('Access token cleared from AsyncStorage');
+    } catch (error) {
+      console.error('Error clearing access token:', error);
+    }
+  };
+
   const onoknutton = () => {
+    clearAccessToken()
     navigation.navigate(RouteName.LOGIN_SCREEN);
   }
 

@@ -13,7 +13,7 @@ const images = {
    phonepay: require('./phonepay.png'),
    GooglePay: require('./google-pay.png'),
    App_logo: require('./one_fifty.png'),
-   User_image_one_profile: require('./souhaila.jpg'),
+   Icon_Succes: require('./succes.jpg'),
 
    Notification_one: require('./hundred.png'),
    Notification_two: require('./hundred.png'),
